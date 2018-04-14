@@ -76,8 +76,7 @@ public class SwapAlgorithm {
                 String big = giveRomanNumber(h);                              
                 System.out.println(small+"="+big);
                 break;
-            }
-                
+            }               
             case 8:{
                 r = (int)(int) (pow(10,power)/2);
                 h = (int)((pow(10,power-1))*singleDigit) - (int) (pow(10,power)/2);              
