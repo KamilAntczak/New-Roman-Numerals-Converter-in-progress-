@@ -17,4 +17,8 @@ public class WrongNumberException extends Exception {
     public void returnError() {
         System.out.println("Invalid Arabic Number");
     }
+    
+    public void outOfRange(){
+        System.out.println("Number is out of range");
+    }
 }

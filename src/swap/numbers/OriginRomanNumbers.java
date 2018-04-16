@@ -5,13 +5,15 @@
  */
 package swap.numbers;
 
+import exceptions.WrongNumberException;
+
 /**
  *
  * @author Kamil
  */
 public class OriginRomanNumbers {
     
-    public String giveRomanNumber(int number){
+    public String giveRomanNumber(int number) throws WrongNumberException{
         switch(number){
             case 1: return "I";
             case 5: return "V";
@@ -23,7 +25,7 @@ public class OriginRomanNumbers {
             case 5000: return "V!";
             case 10000: return "X!";
             
-            default: return "out of range";
+            default: throw new WrongNumberException();
         }
     }
 }

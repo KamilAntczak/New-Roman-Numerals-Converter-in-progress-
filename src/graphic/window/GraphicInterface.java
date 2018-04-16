@@ -86,9 +86,15 @@ public class GraphicInterface extends javax.swing.JFrame {
             String userArabicNumber = this.putArabicNumbersField.getText();
             ArabicNumberValidation arabicValidation = new ArabicNumberValidation();
             arabicValidation.validateNumber(userArabicNumber);
-            
+            try{
             SwapAlgorithm swapAlgorithm = new SwapAlgorithm();
             swapAlgorithm.swapToRoman(userArabicNumber);
+            }
+            
+            catch(WrongNumberException e){
+                e.outOfRange();
+                this.putArabicNumbersField.setText("");
+            }
         }
                
         catch(WrongNumberException e){
