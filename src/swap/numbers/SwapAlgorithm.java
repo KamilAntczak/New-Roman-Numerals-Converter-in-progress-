@@ -15,24 +15,8 @@ import java.util.ArrayList;
  */
 public class SwapAlgorithm {
     
-    List<String> listOfSingleRoman = new ArrayList<String>();
-    
-     private String giveRomanNumber(int number){
-        switch(number){
-            case 1: return "I";
-            case 5: return "V";
-            case 10: return "X";
-            case 50: return "L";
-            case 100: return "C";
-            case 500: return "D";
-            case 1000: return "M";
-            case 5000: return "V!";
-            case 10000: return "X!";
-            
-            default: return "out of range";
-        }
-    }
-    
+    OriginRomanNumbers origin = new OriginRomanNumbers();
+    List<String> listOfSingleRoman = new ArrayList<>();
     
     private void swapToRoman(int singleDigit, int power){
         int h;
@@ -46,21 +30,21 @@ public class SwapAlgorithm {
             case 1:
                 r = (int)(pow(10,power-1));
                 for(int i=0; i < singleDigit ; i++){
-                    smallerRomanNumber += giveRomanNumber(r);
+                    smallerRomanNumber += origin.giveRomanNumber(r);
                 }                              
                 System.out.println(smallerRomanNumber);
                 break;
             case 2:
                 r = (int)(pow(10,power-1));
                 for(int i=0; i < singleDigit ; i++){
-                    smallerRomanNumber += giveRomanNumber(r);
+                    smallerRomanNumber += origin.giveRomanNumber(r);
                 }                              
                 System.out.println(smallerRomanNumber);
                 break;
             case 3:
                 r = (int)(pow(10,power-1));
                 for(int i=0; i < singleDigit ; i++){
-                    smallerRomanNumber += giveRomanNumber(r);
+                    smallerRomanNumber += origin.giveRomanNumber(r);
                 }                              
                 System.out.println(smallerRomanNumber);
                 break;
@@ -68,14 +52,14 @@ public class SwapAlgorithm {
                 h = (int)(pow(10,power)/2);
                 r = (int) h - (int)((pow(10,power-1))*singleDigit);
                 System.out.println(h+ " " + r);
-                smallerRomanNumber= giveRomanNumber(r);
-                greaterRomanNumber = giveRomanNumber(h);                              
+                smallerRomanNumber = origin.giveRomanNumber(r);
+                greaterRomanNumber = origin.giveRomanNumber(h);                              
                 System.out.println(smallerRomanNumber+greaterRomanNumber);
                 break;
             }           
             case 5:{
                  r = (int)((pow(10,power-1))*singleDigit);
-                String number = giveRomanNumber(r);
+                String number = origin.giveRomanNumber(r);
                 System.out.println(number);
                 break;
             }
@@ -83,18 +67,18 @@ public class SwapAlgorithm {
                 r = (int)(pow(10,power)/2);
                 h = (int)((pow(10,power-1))*singleDigit) - (int) (pow(10,power)/2);              
                 System.out.println(h+" " + r);
-                smallerRomanNumber= giveRomanNumber(r);
-                greaterRomanNumber = giveRomanNumber(h);                              
+                smallerRomanNumber = origin.giveRomanNumber(r);
+                greaterRomanNumber = origin.giveRomanNumber(h);                              
                 System.out.println(smallerRomanNumber+greaterRomanNumber);
                 break;
             }
             case 7:{
                 r = (int)(pow(10,power)/2);
                 h = (int)((pow(10,power-1))*singleDigit) - (int)(pow(10,power)/2);   
-                greaterRomanNumber = giveRomanNumber(r);
+                greaterRomanNumber = origin.giveRomanNumber(r);
                 System.out.println(h + " " + r);
                 for(int i =0 ; i < (h/((int)pow(10,power-1))); i++)
-                    smallerRomanNumber += giveRomanNumber((h/h)*(int)pow(10,power-1));
+                    smallerRomanNumber += origin.giveRomanNumber((h/h)*(int)pow(10,power-1));
                 
                 System.out.println(greaterRomanNumber+smallerRomanNumber);
                 break;
@@ -102,10 +86,10 @@ public class SwapAlgorithm {
             case 8:{ 
                 r = (int)(pow(10,power)/2);
                 h = (int)((pow(10,power-1))*singleDigit) - (int)(pow(10,power)/2);   
-                greaterRomanNumber = giveRomanNumber(r);
+                greaterRomanNumber = origin.giveRomanNumber(r);
                 System.out.println(h + " " + r);
                 for(int i =0 ; i < (h/((int)pow(10,power-1))); i++)
-                    smallerRomanNumber += giveRomanNumber((h/h)*(int)pow(10,power-1));
+                    smallerRomanNumber += origin.giveRomanNumber((h/h)*(int)pow(10,power-1));
                 
                 System.out.println(greaterRomanNumber+smallerRomanNumber);
                 break;
@@ -113,8 +97,8 @@ public class SwapAlgorithm {
             case 9:{
                 h = (int) (pow(10,power));
                 r = (int) h - (int)(pow(10,power-1));
-                smallerRomanNumber= giveRomanNumber(h-r);
-                greaterRomanNumber = giveRomanNumber(h);                              
+                smallerRomanNumber = origin.giveRomanNumber(h-r);
+                greaterRomanNumber = origin.giveRomanNumber(h);                              
                 System.out.println(smallerRomanNumber+greaterRomanNumber);
                 break;
             }      
