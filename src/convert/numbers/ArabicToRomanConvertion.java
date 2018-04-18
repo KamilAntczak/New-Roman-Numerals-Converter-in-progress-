@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package swap.numbers;
+package convert.numbers;
 
 import exceptions.WrongNumberException;
 import static java.lang.Math.pow;
@@ -12,7 +12,7 @@ import static java.lang.Math.pow;
  *
  * @author Kamil
  */
-public class SwapAlgorithm {
+public class ArabicToRomanConvertion {
     
     OriginRomanNumbers origin = new OriginRomanNumbers();
     
