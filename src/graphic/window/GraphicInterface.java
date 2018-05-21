@@ -9,7 +9,9 @@ import exceptions.WrongNumberException;
 import history.of.convertion.ArabicToRomanHistory;
 import convert.numbers.ArabicNumberValidation;
 import convert.numbers.ArabicToRomanConvertion;
-import convert.numbers.RomanToArabicConvertion;
+import convert.numbers.RomanNumberValidator;
+import convert.numbers.RomanToArabicAdder;
+import convert.numbers.RomanToArabicConverter;
 
 /**
  *
@@ -18,7 +20,9 @@ import convert.numbers.RomanToArabicConvertion;
 public class GraphicInterface extends javax.swing.JFrame {
     
     ArabicToRomanHistory arabicToRomanHistory = new ArabicToRomanHistory();
-    RomanToArabicConvertion romanToArabicConvertion = new RomanToArabicConvertion();
+    RomanToArabicAdder romanToArabicAdder = new RomanToArabicAdder();
+    RomanToArabicConverter romanToArabicConverter = new RomanToArabicConverter();
+    RomanNumberValidator romanNumberValidator = new RomanNumberValidator();
     /**
      * Creates new form GraphicInterface
      */
@@ -150,7 +154,7 @@ public class GraphicInterface extends javax.swing.JFrame {
                                             .addComponent(romanHundredButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(romanFiveHunButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 40, Short.MAX_VALUE)))
+                                .addGap(0, 7, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(userRomanNumberLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -219,42 +223,58 @@ public class GraphicInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_swapToRomanButtonActionPerformed
 
     private void romanFiftyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_romanFiftyButtonActionPerformed
-        romanToArabicConvertion.addNumeberToList("L");
-        this.userRomanNumberLabel.setText(romanToArabicConvertion.printRomanNumber());
+        romanToArabicAdder.addNumeberToList("L");
+        this.userRomanNumberLabel.setText(romanToArabicAdder.printRomanNumber());
     }//GEN-LAST:event_romanFiftyButtonActionPerformed
 
     private void romanFiveHunButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_romanFiveHunButtonActionPerformed
-        romanToArabicConvertion.addNumeberToList("D");
-        this.userRomanNumberLabel.setText(romanToArabicConvertion.printRomanNumber());
+        romanToArabicAdder.addNumeberToList("D");
+        this.userRomanNumberLabel.setText(romanToArabicAdder.printRomanNumber());
     }//GEN-LAST:event_romanFiveHunButtonActionPerformed
 
     private void romanOneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_romanOneButtonActionPerformed
-        romanToArabicConvertion.addNumeberToList("I");
-        this.userRomanNumberLabel.setText(romanToArabicConvertion.printRomanNumber());
+        romanToArabicAdder.addNumeberToList("I");
+        this.userRomanNumberLabel.setText(romanToArabicAdder.printRomanNumber());
     }//GEN-LAST:event_romanOneButtonActionPerformed
 
     private void romanFiveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_romanFiveButtonActionPerformed
-        romanToArabicConvertion.addNumeberToList("V");
-        this.userRomanNumberLabel.setText(romanToArabicConvertion.printRomanNumber());
+        romanToArabicAdder.addNumeberToList("V");
+        this.userRomanNumberLabel.setText(romanToArabicAdder.printRomanNumber());
     }//GEN-LAST:event_romanFiveButtonActionPerformed
 
     private void romanTenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_romanTenButtonActionPerformed
-        romanToArabicConvertion.addNumeberToList("X");
-        this.userRomanNumberLabel.setText(romanToArabicConvertion.printRomanNumber());
+        romanToArabicAdder.addNumeberToList("X");
+        this.userRomanNumberLabel.setText(romanToArabicAdder.printRomanNumber());
     }//GEN-LAST:event_romanTenButtonActionPerformed
 
     private void romanHundredButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_romanHundredButtonActionPerformed
-        romanToArabicConvertion.addNumeberToList("C");
-        this.userRomanNumberLabel.setText(romanToArabicConvertion.printRomanNumber());
+        romanToArabicAdder.addNumeberToList("C");
+        this.userRomanNumberLabel.setText(romanToArabicAdder.printRomanNumber());
     }//GEN-LAST:event_romanHundredButtonActionPerformed
 
     private void romanThausandButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_romanThausandButtonActionPerformed
-        romanToArabicConvertion.addNumeberToList("M");
-        this.userRomanNumberLabel.setText(romanToArabicConvertion.printRomanNumber());
+        romanToArabicAdder.addNumeberToList("M");
+        this.userRomanNumberLabel.setText(romanToArabicAdder.printRomanNumber());
     }//GEN-LAST:event_romanThausandButtonActionPerformed
 
     private void romanToArabicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_romanToArabicButtonActionPerformed
         // TODO add your handling code here:
+        
+        try{
+            romanNumberValidator.isRomanValid(romanToArabicAdder.getList());
+            
+                try{
+                    romanToArabicConverter.romanToArabicSwapper(romanToArabicAdder.getList());
+                    romanToArabicConverter.romanToArabicResultCounter();
+                }
+                catch(WrongNumberException e){
+                e.returnError();
+               }
+        }
+        catch(WrongNumberException e){
+            e.returnError();
+        }
+        
     }//GEN-LAST:event_romanToArabicButtonActionPerformed
 
     /**

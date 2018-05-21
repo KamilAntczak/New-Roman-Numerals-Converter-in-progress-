@@ -6,6 +6,7 @@
 package convert.numbers;
 
 import exceptions.WrongNumberException;
+import static java.lang.Math.pow;
 import java.util.List;
 
 /**
@@ -14,8 +15,8 @@ import java.util.List;
  */
 public class RomanNumberValidator {
     
-    
-    public int giveRomanValue(String roman) throws WrongNumberException{
+    // That method is kind of mistake, cause I can create one class containing this method and use it also in RomanToArabicConverter class, instead writing it once more. I have to fix that.
+    private int giveRomanValue(String roman) throws WrongNumberException{
         switch(roman){
             case "I": return 1;
             case "V": return 5;
@@ -29,12 +30,49 @@ public class RomanNumberValidator {
         }
     }
     
-    public boolean isRomanValid(String nextPossibleNubmber, List<String> romanNumberArray) throws WrongNumberException{
+    
+    private boolean powerChecker(int a, int b)  throws WrongNumberException{
         
-        int length = romanNumberArray.size();
+        int  aLength =  String.valueOf(a).length();
+        int  bLength =  String.valueOf(b).length();
         
-        for(int i =0 ; i < length ; i++){
-            System.out.println(giveRomanValue(romanNumberArray.get(i)));
+        if( pow(a,aLength-1) != a && pow(b,bLength-1) != b )       
+            throw new WrongNumberException();
+        
+        return true;
+    }
+    
+    private boolean middleChecker(int first, int middle, int last) throws WrongNumberException{
+        
+        if(middle < first && middle < last)
+         throw new WrongNumberException();
+        
+        return true;
+    }
+    
+    public boolean isRomanValid( List<String> romanNumberArray) throws WrongNumberException{
+        
+        int length = romanNumberArray.size()-1;
+        
+        for(int i = 0; i <= length ; i++ ){
+            
+            int presentNumber = giveRomanValue(romanNumberArray.get(i));
+            
+            if(i+1 <= length){
+                
+                int middleNumber = giveRomanValue(romanNumberArray.get(i+1));
+            
+                powerChecker(presentNumber, middleNumber);
+                
+                    if(i+2 <= length){
+               
+                        int lastNumber = giveRomanValue(romanNumberArray.get(i+2));
+                        
+                        middleChecker(presentNumber, middleNumber, lastNumber);
+                    }
+            }
+ 
+            
         }
         
         return true;

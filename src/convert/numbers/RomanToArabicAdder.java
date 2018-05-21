@@ -14,16 +14,15 @@ import java.util.List;
  *
  * @author Kamil
  */
-public class RomanToArabicConvertion {
+public class RomanToArabicAdder {
     List<String> userRomanNumber = new ArrayList<>();
     ArabicNumberValidation validate = new ArabicNumberValidation();
     
     public void addNumeberToList(String userNumber){
         userRomanNumber.add(userNumber);
-        System.out.println(userRomanNumber);
+        //System.out.println(userRomanNumber);
     }
-    
-    
+      
     public String printRomanNumber(){
         return "Your Roman Number : " + userRomanNumber.toString();
     }
