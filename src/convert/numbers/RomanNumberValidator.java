@@ -36,16 +36,13 @@ public class RomanNumberValidator {
         int  aLength =  String.valueOf(a).length();
         int  bLength =  String.valueOf(b).length();
         
-        if( pow(a,aLength-1) != a && pow(b,bLength-1) != b )       
+        
+        int powa =  (int) pow(10,(aLength-1));
+        int powb = (int) pow(10,(bLength-1));
+        
+        if( powa != a &&  powb != b ) {      
             throw new WrongNumberException();
-        
-        return true;
-    }
-    
-    private boolean middleChecker(int first, int middle, int last) throws WrongNumberException{
-        
-        if(middle < first && middle < last)
-         throw new WrongNumberException();
+        }
         
         return true;
     }
@@ -76,7 +73,6 @@ public class RomanNumberValidator {
                
                         int lastNumber = giveRomanValue(romanNumberArray.get(i+2));
                         
-                        middleChecker(presentNumber, middleNumber, lastNumber);
                         lastChecker(presentNumber,lastNumber);
                     }
             }
