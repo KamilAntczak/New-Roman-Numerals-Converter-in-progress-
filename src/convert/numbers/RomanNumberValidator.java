@@ -50,6 +50,14 @@ public class RomanNumberValidator {
         return true;
     }
     
+    private boolean lastChecker(int first, int last)throws WrongNumberException{
+        
+        if(first < last)
+            throw new WrongNumberException();
+        
+        return true;
+    }
+    
     public boolean isRomanValid( List<String> romanNumberArray) throws WrongNumberException{
         
         int length = romanNumberArray.size()-1;
@@ -69,6 +77,7 @@ public class RomanNumberValidator {
                         int lastNumber = giveRomanValue(romanNumberArray.get(i+2));
                         
                         middleChecker(presentNumber, middleNumber, lastNumber);
+                        lastChecker(presentNumber,lastNumber);
                     }
             }
  
