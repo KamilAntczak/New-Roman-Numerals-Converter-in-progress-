@@ -9,9 +9,11 @@ import exceptions.WrongNumberException;
 import history.of.convertion.ArabicToRomanHistory;
 import convert.numbers.ArabicNumberValidation;
 import convert.numbers.ArabicToRomanConvertion;
+import convert.numbers.RomanToArabicResultCounter;
 import convert.numbers.RomanNumberValidator;
 import convert.numbers.RomanToArabicAdder;
 import convert.numbers.RomanToArabicConverter;
+import history.of.convertion.RomanToArabicHistory;
 
 /**
  *
@@ -20,9 +22,13 @@ import convert.numbers.RomanToArabicConverter;
 public class GraphicInterface extends javax.swing.JFrame {
     
     ArabicToRomanHistory arabicToRomanHistory = new ArabicToRomanHistory();
+    RomanToArabicHistory romanToArabicHistory = new RomanToArabicHistory();
+    
+    
     RomanToArabicAdder romanToArabicAdder = new RomanToArabicAdder();
     RomanToArabicConverter romanToArabicConverter = new RomanToArabicConverter();
     RomanNumberValidator romanNumberValidator = new RomanNumberValidator();
+    RomanToArabicResultCounter romanResultCounter = new RomanToArabicResultCounter();
     /**
      * Creates new form GraphicInterface
      */
@@ -36,7 +42,7 @@ public class GraphicInterface extends javax.swing.JFrame {
 
         putArabicNumbersField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        historyOfSwapArea = new javax.swing.JTextArea();
+        arabicToRomanSwapAreaHistory = new javax.swing.JTextArea();
         swapToRomanButton = new javax.swing.JButton();
         romanOneButton = new javax.swing.JButton();
         romanFiveButton = new javax.swing.JButton();
@@ -49,14 +55,24 @@ public class GraphicInterface extends javax.swing.JFrame {
         PutArabicNumberLabel = new javax.swing.JLabel();
         userRomanNumberLabel = new javax.swing.JLabel();
         romanToArabicButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        romanToArabicSwapAreaHistory = new javax.swing.JTextArea();
+        resetAllHistoryButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Roman Numerals Converter - Antczak Kamil");
+        setBackground(new java.awt.Color(255, 255, 255));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setFocusTraversalPolicyProvider(true);
+        setForeground(java.awt.Color.white);
 
-        historyOfSwapArea.setColumns(20);
-        historyOfSwapArea.setRows(5);
-        jScrollPane1.setViewportView(historyOfSwapArea);
+        arabicToRomanSwapAreaHistory.setColumns(20);
+        arabicToRomanSwapAreaHistory.setRows(5);
+        jScrollPane1.setViewportView(arabicToRomanSwapAreaHistory);
 
+        swapToRomanButton.setBackground(new java.awt.Color(174, 255, 195));
         swapToRomanButton.setText("Swap To Roman");
+        swapToRomanButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         swapToRomanButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 swapToRomanButtonActionPerformed(evt);
@@ -64,6 +80,7 @@ public class GraphicInterface extends javax.swing.JFrame {
         });
 
         romanOneButton.setText("I");
+        romanOneButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         romanOneButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 romanOneButtonActionPerformed(evt);
@@ -71,6 +88,7 @@ public class GraphicInterface extends javax.swing.JFrame {
         });
 
         romanFiveButton.setText("V");
+        romanFiveButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         romanFiveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 romanFiveButtonActionPerformed(evt);
@@ -78,6 +96,7 @@ public class GraphicInterface extends javax.swing.JFrame {
         });
 
         romanTenButton.setText("X");
+        romanTenButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         romanTenButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 romanTenButtonActionPerformed(evt);
@@ -85,6 +104,7 @@ public class GraphicInterface extends javax.swing.JFrame {
         });
 
         romanThausandButton.setText("M");
+        romanThausandButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         romanThausandButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 romanThausandButtonActionPerformed(evt);
@@ -92,6 +112,7 @@ public class GraphicInterface extends javax.swing.JFrame {
         });
 
         romanFiftyButton.setText("L");
+        romanFiftyButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         romanFiftyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 romanFiftyButtonActionPerformed(evt);
@@ -99,6 +120,7 @@ public class GraphicInterface extends javax.swing.JFrame {
         });
 
         romanHundredButton.setText("C");
+        romanHundredButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         romanHundredButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 romanHundredButtonActionPerformed(evt);
@@ -106,6 +128,7 @@ public class GraphicInterface extends javax.swing.JFrame {
         });
 
         romanFiveHunButton.setText("D");
+        romanFiveHunButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         romanFiveHunButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 romanFiveHunButtonActionPerformed(evt);
@@ -116,10 +139,27 @@ public class GraphicInterface extends javax.swing.JFrame {
 
         userRomanNumberLabel.setText("Your Roman Number :");
 
+        romanToArabicButton.setBackground(new java.awt.Color(174, 255, 195));
         romanToArabicButton.setText("Convert");
+        romanToArabicButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         romanToArabicButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 romanToArabicButtonActionPerformed(evt);
+            }
+        });
+
+        romanToArabicSwapAreaHistory.setColumns(20);
+        romanToArabicSwapAreaHistory.setRows(5);
+        jScrollPane2.setViewportView(romanToArabicSwapAreaHistory);
+
+        resetAllHistoryButton.setBackground(new java.awt.Color(255, 160, 160));
+        resetAllHistoryButton.setText("RESET HISTORY");
+        resetAllHistoryButton.setToolTipText("");
+        resetAllHistoryButton.setActionCommand(" RESET HISTORY");
+        resetAllHistoryButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        resetAllHistoryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetAllHistoryButtonActionPerformed(evt);
             }
         });
 
@@ -154,10 +194,16 @@ public class GraphicInterface extends javax.swing.JFrame {
                                             .addComponent(romanHundredButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(romanFiveHunButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 7, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(userRomanNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(userRomanNumberLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(resetAllHistoryButton)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -177,23 +223,31 @@ public class GraphicInterface extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(romanOneButton)
-                    .addComponent(romanTenButton)
-                    .addComponent(romanFiveButton))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(romanOneButton)
+                            .addComponent(romanTenButton)
+                            .addComponent(romanFiveButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(romanFiveHunButton)
+                            .addComponent(romanHundredButton)
+                            .addComponent(romanFiftyButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(romanThausandButton)
+                            .addComponent(romanToArabicButton))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(romanFiveHunButton)
-                    .addComponent(romanHundredButton)
-                    .addComponent(romanFiftyButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(romanThausandButton)
-                    .addComponent(romanToArabicButton))
-                .addGap(18, 18, 18)
-                .addComponent(userRomanNumberLabel)
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(userRomanNumberLabel)
+                    .addComponent(resetAllHistoryButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -208,7 +262,7 @@ public class GraphicInterface extends javax.swing.JFrame {
                 ArabicToRomanConvertion swapAlgorithm = new ArabicToRomanConvertion();
                 String romanResult = swapAlgorithm.swapToRoman(userArabicNumber);
                 arabicToRomanHistory.addAtrConvertionToHistory(userArabicNumber, romanResult);
-                this.historyOfSwapArea.setText(arabicToRomanHistory.printListArabicToRoman());
+                this.arabicToRomanSwapAreaHistory.setText(arabicToRomanHistory.printListArabicToRoman());
             }
             catch(WrongNumberException e){
                 e.outOfRange();
@@ -261,21 +315,40 @@ public class GraphicInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         try{
+            
             romanNumberValidator.isRomanValid(romanToArabicAdder.getList());
             
                 try{
-                    romanToArabicConverter.romanToArabicSwapper(romanToArabicAdder.getList());
-                    romanToArabicConverter.romanToArabicResultCounter();
+                    
+                    romanToArabicConverter.sendListToSwap(romanToArabicAdder.getList());
+                    int result = romanResultCounter.resultCounter(romanToArabicConverter.getListOfSwappedValues());
+                    romanToArabicHistory.addRomanToArabicHistoryConvertion(romanToArabicAdder.getList().toString(), result);
+                    this.romanToArabicSwapAreaHistory.setText(romanToArabicHistory.printListRomanToArabic());
+                    romanToArabicAdder.resetAll();
+                    this.userRomanNumberLabel.setText("Your Roman Number : ");
+                    
                 }
-                catch(WrongNumberException e){
+                catch(WrongNumberException e){               
                 e.returnError();
                }
         }
         catch(WrongNumberException e){
+            
+             romanToArabicAdder.resetAll();
+              this.userRomanNumberLabel.setText("Your Roman Number : ");
             e.returnError();
         }
         
     }//GEN-LAST:event_romanToArabicButtonActionPerformed
+
+    private void resetAllHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetAllHistoryButtonActionPerformed
+        // TODO add your handling code here:
+        arabicToRomanHistory.resetAll();
+        romanToArabicHistory.resetAll();
+        
+        this.arabicToRomanSwapAreaHistory.setText("");
+        this.romanToArabicSwapAreaHistory.setText("");
+    }//GEN-LAST:event_resetAllHistoryButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -284,10 +357,12 @@ public class GraphicInterface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel PutArabicNumberLabel;
-    private javax.swing.JTextArea historyOfSwapArea;
+    private javax.swing.JTextArea arabicToRomanSwapAreaHistory;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField putArabicNumbersField;
+    private javax.swing.JButton resetAllHistoryButton;
     private javax.swing.JButton romanFiftyButton;
     private javax.swing.JButton romanFiveButton;
     private javax.swing.JButton romanFiveHunButton;
@@ -296,6 +371,7 @@ public class GraphicInterface extends javax.swing.JFrame {
     private javax.swing.JButton romanTenButton;
     private javax.swing.JButton romanThausandButton;
     private javax.swing.JButton romanToArabicButton;
+    private javax.swing.JTextArea romanToArabicSwapAreaHistory;
     private javax.swing.JButton swapToRomanButton;
     private javax.swing.JLabel userRomanNumberLabel;
     // End of variables declaration//GEN-END:variables
