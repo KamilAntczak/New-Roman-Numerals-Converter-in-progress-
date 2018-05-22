@@ -36,28 +36,53 @@ public class RomanNumberValidator {
         int  aLength =  String.valueOf(a).length();
         int  bLength =  String.valueOf(b).length();
         
+     
         
         int powa =  (int) pow(10,(aLength-1));
         int powb = (int) pow(10,(bLength-1));
         
-        if( powa != a &&  powb != b ) {      
+        if( powa != a &&  powb != b && bLength == aLength)      
             throw new WrongNumberException();
-        }
+        
+           if( bLength - aLength > 1 || a*10 < b)
+            throw new WrongNumberException();
+            
+        return true;
+   } 
+    
+    private boolean lastChecker(int first, int middle, int last)throws WrongNumberException{
+        
+        if(first <= last && first < middle & last < middle)
+            throw new WrongNumberException();
         
         return true;
     }
     
-    private boolean lastChecker(int first, int last)throws WrongNumberException{
+    private boolean addNextNumberChecker(int present, int next, int last, int lastPossible, boolean substract)throws WrongNumberException{
         
-        if(first < last)
+        if(present  >= next && substract && next >= last && lastPossible != last )
             throw new WrongNumberException();
         
-        return true;
+        if(present < next)
+            return true;       
+        if(substract == true)
+            return true;
+        
+        return false;
+    }
+    
+    private boolean squadChecker(int first, int second, int third, int fourth) throws WrongNumberException{
+        
+        if(first == second && first == third && first == fourth)
+         throw new WrongNumberException();
+         
+         return true;       
     }
     
     public boolean isRomanValid( List<String> romanNumberArray) throws WrongNumberException{
         
         int length = romanNumberArray.size()-1;
+        boolean substractCheck = false;
         
         for(int i = 0; i <= length ; i++ ){
             
@@ -66,20 +91,24 @@ public class RomanNumberValidator {
             if(i+1 <= length){
                 
                 int middleNumber = giveRomanValue(romanNumberArray.get(i+1));
-            
+                     
                 powerChecker(presentNumber, middleNumber);
                 
                     if(i+2 <= length){
-               
-                        int lastNumber = giveRomanValue(romanNumberArray.get(i+2));
                         
-                        lastChecker(presentNumber,lastNumber);
+                        int lastNumber = giveRomanValue(romanNumberArray.get(i+2));
+                                           
+                        lastChecker(presentNumber,middleNumber, lastNumber);
+                        
+                        if(i+3 <= length){
+                            int lastPossibleNumber= giveRomanValue(romanNumberArray.get(i+3));
+                            squadChecker(presentNumber, middleNumber, lastNumber, lastPossibleNumber);
+                             substractCheck = addNextNumberChecker(presentNumber, middleNumber, lastNumber, lastPossibleNumber, substractCheck);
+                        }
                     }
             }
- 
-            
-        }
         
+        }      
         return true;
     }
 }
